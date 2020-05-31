@@ -1,6 +1,50 @@
-# Cloud Data Optimization Knowledge Base
+# Cloud Hosted Data Optimization Knowledge Base
 ## ESIP Cloud Computing Cluster
 
-_Work in progress_
-
 This repository captures optimization practices for data in the cloud.
+
+### Why Optimize Data for Cloud Access?
+
+Increasingly, organizations with large data holdings are turning to cloud-hosted
+storage to improve capacity, scalability, and access to computing resources near
+data.  These data are often stored in object stores or other storage that offers
+horizontally-scalable access over a network.  This demands attention from data
+providers seeking to maximize the value of data, as the performance
+characteristics of cloud-hosted stores can differ greatly from their
+predecessors.  Further, the cost profile of cloud hosting differs from that of
+on premises hosting, such that unnecessary data requests, data transfer, and
+compute time all tend to directly contribute to the overall cost to host data.
+
+In short, well-optimized data in a cloud environment are typically less
+expensive, more usable, and have faster typical access times than poorly optimized
+data.
+
+### Resources for Cloud Data Optimization
+
+* [Task 51 - Cloud-Optimized Format
+  Study](https://ntrs.nasa.gov/search.jsp?R=20200001178P) - A NASA study on the
+  performance characteristics of several formats in cloud environments.
+* [Landsat Cloud Optimized GeoTIFF Data Format Control
+  Book](https://www.usgs.gov/media/files/landsat-cloud-optimized-geotiff-data-format-control-book)  -
+  Details on format selections and packaging for Landsat Collection 2.
+* [Highly Scalable Data Service (HSDS)](https://github.com/HDFGroup/hsds) - A a
+  REST-based web service for HDF5 data stores, built by The HDF Group, with
+  several optimizations for data access in network environments.
+
+### Factors Influencing Optimization Decisions
+
+_(WIP: analysis patterns, data size, tradeoffs in cost /
+performance.  See "Background" section of Google Doc.)_
+
+### Optimization Practices
+
+_(WIP: chunk sizes, sidecar files, NetCDF -> Zarr work)_
+
+### Antipatterns
+
+_(WIP: No lift and shift, avoiding large granules without a means to subset)_
+
+### Cost and Compliance Considerations
+
+_(WIP: egress controls, export controls, multi-tenant systems, etc)_
+
