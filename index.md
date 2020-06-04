@@ -22,7 +22,7 @@ data.
 ### Resources for Cloud Data Optimization
 
 * [Task 51 - Cloud-Optimized Format
-  Study](https://ntrs.nasa.gov/search.jsp?R=20200001178P) - A NASA study on the
+  Study](https://ntrs.nasa.gov/search.jsp?R=20200001178) - A NASA study on the
   performance characteristics of several formats in cloud environments.
 * [Landsat Cloud Optimized GeoTIFF Data Format Control
   Book](https://www.usgs.gov/media/files/landsat-cloud-optimized-geotiff-data-format-control-book)  -
