@@ -3,7 +3,7 @@
 
 This repository captures optimization practices for data in the cloud.
 
-### Why Optimize Data for Cloud Access?
+## Why Optimize Data for Cloud Access?
 
 Increasingly, organizations with large data holdings are turning to cloud-hosted
 storage to improve capacity, scalability, and access to computing resources near
@@ -19,7 +19,7 @@ In short, well-optimized data in a cloud environment are typically less
 expensive, more usable, and have faster typical access times than poorly optimized
 data.
 
-### Resources for Cloud Data Optimization
+## Resources for Cloud Data Optimization
 
 * [Task 51 - Cloud-Optimized Format
   Study](https://ntrs.nasa.gov/search.jsp?R=20200001178) - A NASA study on the
@@ -31,7 +31,7 @@ data.
   several optimizations for data access in network environments.
 * [Performance Guidelines for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance-guidelines.html) - Amazon suggestions to optimize performance on S3.
 
-### Factors Influencing Optimization Decisions
+## Factors Influencing Optimization Decisions
 
 _(WIP: analysis patterns, data size, tradeoffs in cost /
 performance.  See "Background" section of Google Doc.)_
@@ -39,6 +39,16 @@ performance.  See "Background" section of Google Doc.)_
 ### Optimization Practices
 
 _(WIP: chunk sizes, sidecar files, NetCDF -> Zarr work)_
+
+### Chunking 
+
+When defining chunks, there are many options to specify.  What are the considerations for chunk size, shape, compression and filter options?  
+
+**Chunk Size**: 
+
+A chunk size should be selected that is large in order to reduce the number of tasks that parallel schedulers like Dask have to think about (which affects overhead) but also small enough so that many of them can fit in memory at once. The Pangeo project has been recommending a chunk size of about 100MB, which originated from the [Dask Best Practices](https://docs.dask.org/en/latest/array-best-practices.html#select-a-good-chunk-size).  The [Zarr Tutorial](https://zarr.readthedocs.io/en/v2.0.0/tutorial.html#chunk-size-and-shape) recommends a chunk size of at least 1MB.   The [Amazon S3 Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance-guidelines.html#optimizing-performance-guidelines-get-range) says the typical size for byte-range requests is 8-16MB. It would seem that chunk sizes on the order of 10MB or 100MB are most optimal for Cloud usage.
+ 
+
 
 ### Antipatterns
 
