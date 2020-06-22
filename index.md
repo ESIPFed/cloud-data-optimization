@@ -30,6 +30,7 @@ data.
 * [Highly Scalable Data Service (HSDS)](https://github.com/HDFGroup/hsds) - A a
   REST-based web service for HDF5 data stores, built by The HDF Group, with
   several optimizations for data access in network environments.
+* [Performance Guidelines for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance-guidelines.html) - Amazon suggestions to optimize performance on S3.
 
 ### Factors Influencing Optimization Decisions
 
