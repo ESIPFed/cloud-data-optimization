@@ -40,11 +40,13 @@ performance.  See "Background" section of Google Doc.)_
 
 _(WIP: chunk sizes, sidecar files, NetCDF -> Zarr work)_
 
-### Chunking 
+#### Chunking 
 
-When defining chunks, there are many options to specify.  What are the considerations for chunk size, shape, compression and filter options?  
+For many file formats, including HDF, NetCDF, and Zarr, chunks constitute the smallest unit of data within a file that can be read at once.  Reading a chunk of data incurs a latency cost, so chunks ought not be too small or performance will suffer.  Reading a chunk of data also incurs a data transfer and decoding cost, so chunks ought not be too large or software may need to transfer and process many extraneous bytes for a particular use case and may also need to keep bytes in slower memory locations, compounding issues.  There is a fundamental tension, where use cases that need a small amount of data from a dimension, such as a time series at a point in space, suffer from a large chunk size in that dimension, while use cases that need a large amount of data from that dimension, such as a spatial analysis at a point in time, suffer from a small chunk size in that dimension.
 
-**Chunk Size**: 
+The optimal chunk shape varies based on expected use cases, but it also varies with the latency and throughput of the data store.  For data in cloud storage, the latter characteristics can be dramatically different from data stored on a local disk.  Chunk size for cloud stores therefore needs careful consideration and cannot easily rely on non-cloud rules of thumb.
+
+##### Chunk Size 
 
 A chunk size should be selected that is large in order to reduce the number of tasks that parallel schedulers like Dask have to think about (which affects overhead) but also small enough so that many of them can fit in memory at once. The Pangeo project has been recommending a chunk size of about 100MB, which originated from the [Dask Best Practices](https://docs.dask.org/en/latest/array-best-practices.html#select-a-good-chunk-size).  The [Zarr Tutorial](https://zarr.readthedocs.io/en/v2.0.0/tutorial.html#chunk-size-and-shape) recommends a chunk size of at least 1MB.   The [Amazon S3 Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance-guidelines.html#optimizing-performance-guidelines-get-range) says the typical size for byte-range requests is 8-16MB. It would seem that chunk sizes on the order of 10MB or 100MB are most optimal for Cloud usage.
  
