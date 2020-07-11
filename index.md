@@ -88,3 +88,14 @@ A community survey of the ESIP Cloud Computing Cluster noted the following antip
 * Failing to cache for repeat access, both client- and server-side, and particularly in service outputs which are expensive to produce and need idempotency
 * Putting workflows on the client, which creates significant back-and-forth nework traffic
 * Hierarchical data tree walks, which tend to be slow and prone to runtime errors
+
+## Moving forward
+
+Please contribute to this document if you have input.  We welcome pull requests.
+
+Additionally, the community has noted the following specific needs for input or experimentation:
+
+1. Identifying commonalities across communities, organizations, and source data formats
+2. Performance analysis on a variety of data organizations, analyses and data structure types.
+3. Chunking and compression options in the context of scalable data access to model output
+4. Data on how optimization decisions vary between different access clients like remote users, dask, and spark clusters.
