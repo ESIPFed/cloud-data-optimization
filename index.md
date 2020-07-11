@@ -73,8 +73,6 @@ The optimal chunk shape varies based on expected use cases, but it also varies w
 ##### Chunk Size 
 
 A chunk size should be selected that is large in order to reduce the number of tasks that parallel schedulers like Dask have to think about (which affects overhead) but also small enough so that many of them can fit in memory at once. The Pangeo project has been recommending a chunk size of about 100MB, which originated from the [Dask Best Practices](https://docs.dask.org/en/latest/array-best-practices.html#select-a-good-chunk-size).  The [Zarr Tutorial](https://zarr.readthedocs.io/en/v2.0.0/tutorial.html#chunk-size-and-shape) recommends a chunk size of at least 1MB.   The [Amazon S3 Best Practices](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance-guidelines.html#optimizing-performance-guidelines-get-range) says the typical size for byte-range requests is 8-16MB. It would seem that chunk sizes on the order of 10MB or 100MB are most optimal for Cloud usage.
- 
-
 
 ### Antipatterns
 
@@ -90,7 +88,3 @@ A community survey of the ESIP Cloud Computing Cluster noted the following antip
 * Failing to cache for repeat access, both client- and server-side, and particularly in service outputs which are expensive to produce and need idempotency
 * Putting workflows on the client, which creates significant back-and-forth nework traffic
 * Hierarchical data tree walks, which tend to be slow and prone to runtime errors
-
-### Cost and Compliance Considerations
-
-_(WIP: egress controls, export controls, multi-tenant systems, etc)_
