@@ -39,10 +39,10 @@ Performance optimization involves reducing the time to locate, retrieve, decode,
 To optimize for performance, the author should:
 
 * Optimize data location, here defined as the amount of time it takes to determine which locatins in which files need to be read in order to fetched the desired data.  Different formats have different approaches to this problem, including:
-** Using sidecar or metadata files to describe byte offsets to different variables and spatiotemporal areas within the file
-** Storing byte offsets at predictable locations within the file that can be quickly read
-** Organizing files to allow direct seeks to the data without reading additional offset information
-** Splitting files across a filesystem (or other key/value storage like cloud object stores) so that desired portions of files can be referenced by name
+  * Using sidecar or metadata files to describe byte offsets to different variables and spatiotemporal areas within the file
+  * Storing byte offsets at predictable locations within the file that can be quickly read
+  * Organizing files to allow direct seeks to the data without reading additional offset information
+  * Splitting files across a filesystem (or other key/value storage like cloud object stores) so that desired portions of files can be referenced by name
 * Optimize data retrieval time.  This involves firstly ensuring the latency and throughput of the system storing the data are as fast as feasible.  Assuming that is done, optimization of retrieval means ensuring that desired data can be fetched in the fewest number of reads while reading the smallest amount of extraneous data.  (Note that a client may nevertheless choose to parallelize reads for more efficient bandwidth usage or distributed processing.)  As these two concerns are highly use-case specific, this needs careful attention.
 * Optimize data decoding.  Data are often compressed for both cost reasons and transfer performance.  Compression schemes and parameters need to balance cost, transfer performance, and decoding performance.
 * Optimize preparation for analysis.  Once data values have been fetched, are they in the right format, projection, grid, units, etc?  Do they have the required quality information, metadata, etc required for valid analysis, and if not, what is required to fetch them?  Reducing the number and cost of these steps reduces both the development time to analysis and the raw computation time required for analysis.
