@@ -32,6 +32,12 @@ data.
 * [Performance Guidelines for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance-guidelines.html) - Amazon suggestions to optimize performance on S3.
 * [Pangeo benchmarking](https://github.com/pangeo-data/benchmarking) - Benchmarks the Pangeo platforms and its scaling
 
+The following resources are not directly related to cloud data but may have relevant optimization efforts, background, and takeaways:
+
+* [Making	earth	science	data	more	accessible: experience	with	chunking	and	compression](https://www.unidata.ucar.edu/presentations/Rew/ams-2013-rew-fixed.pdf) - Discussion of chunking decisions
+* [SEED Data Manual](http://www.fdsn.org/pdf/SEEDManual_V2.4.pdf)
+* [OAIS Reference Model](http://www.oais.info/)
+
 ## Factors Influencing Optimization Decisions
 
 Performance optimization involves reducing the time to locate, retrieve, decode, and prepare data values for analysis.
@@ -54,9 +60,9 @@ Given the above, the answer for how to optimize data will always be "It depends.
 * End user location and network performance.  Similar to the previous item, but on the user side, in-cloud access can have wildly different performance (and cost) characteristics than out-of-cloud access, which themselves can vary greatly.
 * Analysis needs.  What are users trying to do?  What software is readily available to them?  What projections, grids (if any), units, etc do they need most?  Which data variables are likely to be needed together?  What is required to make valid use of science data?  Reducing time to analysis means considering these factors, though they are largely out of scope of this document.
 
-### Optimization Practices
+While the above optimizes for performance, these concerns need to be balanced against organizational requirements, regulatory requirements, and other factors such as creation, hosting, and transfer cost.
 
-_(WIP: chunk sizes, sidecar files, NetCDF -> Zarr work)_
+### Optimization Practices
 
 #### Chunking 
 
@@ -72,11 +78,18 @@ A chunk size should be selected that is large in order to reduce the number of t
 
 ### Antipatterns
 
-A community survey of the ESIP Cloud Computing Cluster noted the following antipatterns:
+A community survey of the ESIP Cloud Computing Cluster noted the following antipatterns in cloud data:
 
-
-
-_(WIP: No lift and shift, avoiding large granules without a means to subset)_
+* Large granule sizes with no means to subset those granules, requiring full-file transfers
+* Storing data uncompressed, which can increase peformance but double cost
+* Lift and shift, which fails to make use of the cloud's elasticity and highly scalable storage while also ignoring changes in access performance
+* Large central file mounts, which create scalability and performance issues
+* Persistent processes, especially inelastic one.  Scientific workloads tend to have high variability in demand and require attention to scaling to provide burst performance without inordinate cost
+* Small chunk sizes, which create significant network chatter
+* Web-based portals instead of direct programmatic data access, which limits automated activity and scalability while returning too many results
+* Failing to cache for repeat access, both client- and server-side, and particularly in service outputs which are expensive to produce and need idempotency
+* Putting workflows on the client, which creates significant back-and-forth nework traffic
+* Hierarchical data tree walks, which tend to be slow and prone to runtime errors
 
 ### Cost and Compliance Considerations
 
